@@ -1,0 +1,3 @@
+run streamlit using the command
+
+streamlit run appname.py
