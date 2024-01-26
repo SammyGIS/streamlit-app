@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as pd
 
 # set title
 st.title("hello word")
@@ -43,4 +44,15 @@ st.subheader("This sis a subheader")
 
 "___" # break line
 
+## Adding Display to our page
+df = pd.read_csv('https://raw.githubusercontent.com/jakevdp/data-USstates/master/state-population.csv')
+df.shape
+
+# to write header you ca use st.write or st.dataframe or st,table
+st.write(df.head())
+st.dataframe(df.head())
+st.table(df.head()) # table is not dynamic, cannot be sorted
+
+# add metrics to the page (just like indidator or card)
+st.metric("AR",df.groupby(['state/region'])['population'].sum()['AR'])
 
