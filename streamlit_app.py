@@ -12,11 +12,9 @@ st.write("A streamlit demo")
 # "*italic*"
 # markdown
 st.markdown("streamlit is **very** *cool*")
-
-#header
-st.header("This is a header")
-st.subhead("This sis a subheader")
-st.caption("This is caption")
+st.header("This is a header") #header
+st.subheader("This sis a subheader") # adding subheader
+st.caption("This is caption") #adding caption
 
 # to represent blcok of code
 
@@ -38,5 +36,11 @@ st.markdown("streamlit is **very** *cool*")
 
 #header
 st.header("This is a header")
-st.subhead("This sis a subheader")
+st.subheader("This sis a subheader")
+        st.caption("This is caption") #adding caption
+
  """)
+
+"___" # break line
+
+
