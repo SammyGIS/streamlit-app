@@ -1,5 +1,7 @@
 import streamlit as st
 import pandas as pd
+import folium
+from streamlit_folium import st_folium
 
 
 APP_TITLE = "Fraud and Identity Theft Report"
@@ -21,12 +23,33 @@ def display_fraud_facts(df,year,quarter,state_name,report_type,
         total = df[field_name].sum()
     st.metric(metric_title,'{}{:,}'.format(currency_sign,round(total)))
 
+def dispaly_map(df,year,quarter):
+
+    df = df[(df['Year'] == year) & (df['Quarter'] == quarter)]
+
+    map = folium.Map(location = [38,-96.5], zoom_start=4, 
+                     scrollWheelZoom=False, tiles='CartoDB positron')
+    choropleth = folium.Choropleth(
+        geo_data='data/us-state-boundaries.geojson', data=df,
+        columns=('State Name','State Total Reports Quarter'),
+        key_on='feature.properties.name',
+        line_opacity= 0.8,
+        highlight=True,
+           )
+    choropleth.geojson.add_to(map)
+    choropleth.geojson.add_child(
+        folium.features.GeoJsonTooltip(['name'], label=False)
+        )
+
+    st_map = st_folium(map, width=700, height=450)
+
 def main():
     st.set_page_config(APP_TITLE)
     st.title(APP_TITLE)
     st.caption(APP_SUB_TITLE)
 
     # load Data
+    df_continenetal = pd.read_csv('data\AxS-Continental_Full Data_data.csv')
     df_fraud= pd.read_csv('data\AxS-Fraud Box_Full Data_data.csv')
     df_median = pd.read_csv('data\AxS-Median Box_Full Data_data.csv')
     df_loss = pd.read_csv('data\AxS-Losses Box_Full Data_data.csv')
@@ -41,7 +64,7 @@ def main():
 
 
     # Display filters and Map
-
+    dispaly_map(df_continenetal,year,quarter)
 
 
 
