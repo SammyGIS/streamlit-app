@@ -3,6 +3,11 @@ import pandas as pd
 import folium
 from streamlit_folium import st_folium
 
+URL_CONTINENETAL_DATA = 'https://raw.githubusercontent.com/SammyGIS/streamlit-app/main/data/AxS-Continental_Full%20Data_data.csv'
+URL_FRAUD_DATA = 'https://raw.githubusercontent.com/SammyGIS/streamlit-app/main/data/AxS-Fraud%20Box_Full%20Data_data.csv'
+URL_LOSSES_DATA ="https://raw.githubusercontent.com/SammyGIS/streamlit-app/main/data/AxS-Losses%20Box_Full%20Data_data.csv"
+URL_MEDIAN_DATA= 'https://raw.githubusercontent.com/SammyGIS/streamlit-app/main/data/AxS-Median%20Box_Full%20Data_data.csv'
+URL_US_BOUNDARIES = 'https://github.com/SammyGIS/streamlit-app/blob/main/data/us-state-boundaries.geojson'
 
 APP_TITLE = "Fraud and Identity Theft Report"
 APP_SUB_TITLE = 'Source: Federal Trade Commission'
@@ -30,7 +35,7 @@ def dispaly_map(df,year,quarter):
     map = folium.Map(location = [38,-96.5], zoom_start=4, 
                      scrollWheelZoom=False, tiles='CartoDB positron')
     choropleth = folium.Choropleth(
-        geo_data='data/us-state-boundaries.geojson', data=df,
+        geo_data=URL_US_BOUNDARIES, data=df,
         columns=('State Name','State Total Reports Quarter'),
         key_on='feature.properties.name',
         line_opacity= 0.8,
@@ -89,10 +94,10 @@ def main():
     st.caption(APP_SUB_TITLE)
 
     # load Data
-    df_continenetal = pd.read_csv('data\AxS-Continental_Full Data_data.csv')
-    df_fraud= pd.read_csv('data\AxS-Fraud Box_Full Data_data.csv')
-    df_median = pd.read_csv('data\AxS-Median Box_Full Data_data.csv')
-    df_loss = pd.read_csv('data\AxS-Losses Box_Full Data_data.csv')
+    df_continenetal = pd.read_csv(URL_CONTINENETAL_DATA)
+    df_fraud= pd.read_csv(URL_FRAUD_DATA)
+    df_median = pd.read_csv(URL_MEDIAN_DATA)
+    df_loss = pd.read_csv(URL_LOSSES_DATA)
 
 
     year   = 2022
