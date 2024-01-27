@@ -109,7 +109,7 @@ def main():
     # display Filer by sidebar
     year, quarter = display_time_filters(df_continenetal)
     state_name = display_state_filter(df_continenetal,state_name)
-
+    report_type = display_report_type_filter()
 
     
     # Display Metrics
