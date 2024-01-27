@@ -69,7 +69,7 @@ def display_time_filters(df):
     # add year to the side bar
     year = st.sidebar.selectbox('Year',year_list, len(year_list)-1)
     # add quarter to the sidebar
-    quarter = st.sidebar.selectbox('Quarter',quarter_list)
+    quarter = st.sidebar.radio('Quarter',quarter_list)
     st.header(f'{year} Q{quarter}')
     return year, quarter
 
