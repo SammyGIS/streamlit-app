@@ -73,7 +73,15 @@ def display_time_filters(df):
     st.header(f'{year} Q{quarter}')
     return year, quarter
 
+def display_state_filter(df,state_name):
+    state_list = [''] + list(df['State Name'].unique())
+    state_list.sort()
+    state_index = state_list.index(state_name) if state_name and state_name in state_list else 0
+    state_name = st.sidebar.selectbox('State', state_list,state_index )
+    return state_name
 
+def display_report_type_filter():
+    return st.sidebar.radio('Report Type', ['Fraud', 'Other'])
 
 def main():
     st.set_page_config(APP_TITLE)
@@ -98,11 +106,12 @@ def main():
     # Display filters and Map
     # add state name automatically as a filter from the map display let the click state name over write the default above
     state_name = dispaly_map(df_continenetal,year,quarter)
-
     # display Filer by sidebar
     year, quarter = display_time_filters(df_continenetal)
+    state_name = display_state_filter(df_continenetal,state_name)
 
 
+    
     # Display Metrics
     st.subheader(f'{state_name} {report_type} Facts')
     col1,col2,col3 = st.columns(3)
