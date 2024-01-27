@@ -7,7 +7,7 @@ URL_CONTINENETAL_DATA = 'https://raw.githubusercontent.com/SammyGIS/streamlit-ap
 URL_FRAUD_DATA = 'https://raw.githubusercontent.com/SammyGIS/streamlit-app/main/data/AxS-Fraud%20Box_Full%20Data_data.csv'
 URL_LOSSES_DATA ="https://raw.githubusercontent.com/SammyGIS/streamlit-app/main/data/AxS-Losses%20Box_Full%20Data_data.csv"
 URL_MEDIAN_DATA= 'https://raw.githubusercontent.com/SammyGIS/streamlit-app/main/data/AxS-Median%20Box_Full%20Data_data.csv'
-URL_US_BOUNDARIES = 'https://github.com/SammyGIS/streamlit-app/blob/main/data/us-state-boundaries.geojson'
+URL_US_BOUNDARIES = 'https://raw.githubusercontent.com/SammyGIS/streamlit-app/main/data/us-state-boundaries.geojson'
 
 APP_TITLE = "Fraud and Identity Theft Report"
 APP_SUB_TITLE = 'Source: Federal Trade Commission'
