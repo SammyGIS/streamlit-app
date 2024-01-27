@@ -37,8 +37,20 @@ def dispaly_map(df,year,quarter):
         highlight=True,
            )
     choropleth.geojson.add_to(map)
+
+    df = df.set_index('State Name')
+    state_name = "North Carolina"
+      
+    for features in choropleth.geojson.data['features']:
+        state_name = features['properties']['name']
+        features['properties']['population'] = 'population:' + \
+            str('{:,}'.format(df.loc[state_name,'State Pop'][0]) if state_name in list(df.index) else 'N/A')
+        features['properties']['per_100k'] = 'Report per 100k Population:'+ \
+            str('{:,}'.format(round(df.loc[state_name,'Reports per 100K-F&O together'][0])) if state_name in list(df.index) else 'N/A')
+        
+
     choropleth.geojson.add_child(
-        folium.features.GeoJsonTooltip(['name'], label=False)
+        folium.features.GeoJsonTooltip(['name','population','per_100k'], labels=False)
         )
 
     st_map = st_folium(map, width=700, height=450)
