@@ -48,12 +48,32 @@ def dispaly_map(df,year,quarter):
         features['properties']['per_100k'] = 'Report per 100k Population:'+ \
             str('{:,}'.format(round(df.loc[state_name,'Reports per 100K-F&O together'][0])) if state_name in list(df.index) else 'N/A')
         
-
+    # add tooltip so map so that when we over it it will shows all this information in the list
     choropleth.geojson.add_child(
         folium.features.GeoJsonTooltip(['name','population','per_100k'], labels=False)
         )
-
+    
+    # set map properties
     st_map = st_folium(map, width=700, height=450)
+
+    # confirm if a field is actively clicked then filter activenss to that sepcfic area
+    if st_map['last_active_drawing']:
+                state_name = st_map['last_active_drawing']['properties']['name']
+    return state_name
+
+def display_time_filters(df):
+    # add the side bar of our dashboard
+    # get all the unique in the data
+    year_list = list(df['Year'].unique())
+    quarter_list = [1 ,2 ,3, 4]
+    # add year to the side bar
+    year = st.sidebar.selectbox('Year',year_list, len(year_list)-1)
+    # add quarter to the sidebar
+    quarter = st.sidebar.selectbox('Quarter',quarter_list)
+    st.header(f'{year} Q{quarter}')
+    return year, quarter
+
+
 
 def main():
     st.set_page_config(APP_TITLE)
@@ -76,8 +96,11 @@ def main():
 
 
     # Display filters and Map
-    dispaly_map(df_continenetal,year,quarter)
+    # add state name automatically as a filter from the map display let the click state name over write the default above
+    state_name = dispaly_map(df_continenetal,year,quarter)
 
+    # display Filer by sidebar
+    year, quarter = display_time_filters(df_continenetal)
 
 
     # Display Metrics
